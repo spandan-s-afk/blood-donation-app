@@ -3,74 +3,70 @@
 <head>
     <title>Blood Donation App</title>
     <style>
-        body {
-            font-family: Arial;
-            background: #f5f5f5;
-            text-align: center;
-        }
-
-        h1 {
-            color: #c0392b;
-        }
-
-        .container {
-            background: white;
-            padding: 20px;
-            margin: 40px auto;
-            width: 400px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            background: #ecf0f1;
-            margin: 5px;
-            padding: 10px;
-            border-radius: 5px;
-        }
-
-        input {
-            padding: 10px;
-            width: 70%;
-        }
-
-        button {
-            padding: 10px;
-            background: #e74c3c;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #c0392b;
-        }
+        body { font-family: Arial; background: #f5f5f5; text-align: center; }
+        .container { background: white; padding: 20px; margin: 40px auto; width: 500px; border-radius: 10px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 10px; border: 1px solid #ddd; }
+        th { background: #e74c3c; color: white; }
+        input, select { padding: 8px; margin: 5px; }
+        button { padding: 8px; background: #e74c3c; color: white; border: none; }
     </style>
 </head>
 
 <body>
-
 <div class="container">
-    <h1>🩸 Blood Donation</h1>
 
-    <h2>Available Donors</h2>
-    <ul>
-        {% for donor in donors %}
-            <li>{{ donor }}</li>
-        {% endfor %}
-    </ul>
+<h1>🩸 Blood Donation System</h1>
 
-    <h2>Add Donor</h2>
-    <form method="POST" action="/add">
-        <input type="text" name="blood_group" placeholder="Enter Blood Group" required>
-        <button type="submit">Add</button>
-    </form>
+<!-- SEARCH -->
+<form method="GET" action="/">
+    <input type="text" name="blood" placeholder="Search Blood Group">
+    <button type="submit">Search</button>
+    <a href="/"><button type="button">Show All</button></a>
+</form>
+
+<br>
+
+<!-- TABLE -->
+<table>
+<tr>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Blood</th>
+    <th>Actions</th>
+</tr>
+
+{% for d in donors %}
+<tr>
+    <td>{{ d[1] }}</td>
+    <td>{{ d[2] }}</td>
+    <td>{{ d[3] }}</td>
+    <td>
+        <a href="/edit/{{ d[0] }}">Edit</a> |
+        <a href="/delete/{{ d[0] }}" onclick="return confirm('Delete?')">Delete</a>
+    </td>
+</tr>
+{% endfor %}
+
+</table>
+
+<br>
+
+<!-- ADD -->
+<h3>Add Donor</h3>
+<form method="POST" action="/add">
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="number" name="age" placeholder="Age" required>
+    <select name="blood_group" required>
+        <option value="">Blood Group</option>
+        <option>A+</option><option>A-</option>
+        <option>B+</option><option>B-</option>
+        <option>O+</option><option>O-</option>
+        <option>AB+</option><option>AB-</option>
+    </select>
+    <button type="submit">Add</button>
+</form>
+
 </div>
-
 </body>
 </html>
