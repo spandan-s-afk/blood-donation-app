@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blood Donation App</title>
+</head>
+<body>
+    <h1>🩸 Blood Donation Management</h1>
+
+    <h2>Available Donors</h2>
+    <ul>
+        {% for donor in donors %}
+            <li>{{ donor }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Add Donor</h2>
+    <form method="POST" action="/add">
+        <input type="text" name="blood_group" placeholder="Enter Blood Group">
+        <button type="submit">Add</button>
+    </form>
+</body>
+</html>
